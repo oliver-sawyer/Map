@@ -14,7 +14,7 @@ public class MapController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            map.setImage(HTTPSUtil.getStaticMap("Milwaukee,WI"));
+            map.setImage(MapUtil.getStaticMap("Milwaukee,WI"));
         } catch(Exception e) {
             e.printStackTrace();
         }
