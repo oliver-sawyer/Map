@@ -1,11 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
 
-<Pane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.MapController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.MapController">
    <children>
-      <ImageView fx:id="map" fitHeight="277.0" fitWidth="429.0" pickOnBounds="true" preserveRatio="true" />
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <HBox prefHeight="945.0" prefWidth="1920.0">
+         <children>
+            <VBox prefHeight="895.0" prefWidth="178.0">
+               <HBox.margin>
+                  <Insets left="20.0" top="50.0" />
+               </HBox.margin>
+               <children>
+                  <Label text="Address:" />
+                  <TextField fx:id="addressField" onAction="#address" prefHeight="25.0" prefWidth="156.0" />
+               </children>
+            </VBox>
+            <ImageView fx:id="map" fitHeight="943.0" fitWidth="1437.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="300.0" />
+               </HBox.margin>
+            </ImageView>
+         </children>
+      </HBox>
    </children>
-</Pane>
+</VBox>

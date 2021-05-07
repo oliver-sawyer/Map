@@ -7,8 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MapMain extends Application {
-    private static int WIDTH = 800;
-    private static int HEIGHT = 600;
+    private static int WIDTH = 1920;
+    private static int HEIGHT = 1080;
 
     public static void main(String[] args) {
         launch(args);
