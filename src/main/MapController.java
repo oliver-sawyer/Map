@@ -2,6 +2,7 @@ package main;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -20,19 +21,22 @@ public class MapController implements Initializable {
     Slider zoomSlider;
     @FXML
     WebView webMap;
+    @FXML
+    ComboBox mapType;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        mapType.getItems().addAll("satellite","hybrid","map","dark");
+        webMap.getEngine().loadContent(MapUtil.getMapHtml(44.3836,-89.8173,(int)zoomSlider.getValue(),"map"));
 
-        //System.out.println(mapDoc.getMember("map"));
     }
 
     @FXML
     public void address() {
         try {
-            //map.setImage(MapUtil.getStaticMap(addressField.getText(), zoomSlider.getValue()));
-            webMap.getEngine().loadContent(MapUtil.getMapHtml(90,90,(int)zoomSlider.getValue()));
-            JSObject mapDoc = (JSObject) webMap.getEngine().getDocument();
+
+            webMap.getEngine().loadContent(MapUtil.getMapHtml(44.3836,-89.8173,(int)zoomSlider.getValue(),(String) mapType.getValue()));
+
 
         } catch(Exception e) {
             e.printStackTrace();

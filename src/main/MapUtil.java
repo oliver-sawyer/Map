@@ -51,7 +51,7 @@ public class MapUtil {
             return null;
         }
     }
-    public static String getMapHtml(double lat, double lng,int zoom){
+    public static String getMapHtml(double lat, double lng,int zoom,String mapType){
         return "<html>\n" +
                 "  <head>\n" +
                 "    <script src=\"https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js\"></script>\n" +
@@ -61,9 +61,9 @@ public class MapUtil {
                 "      window.onload = function() {\n" +
                 "        L.mapquest.key = 'lYrP4vF3Uk5zgTiGGuEzQGwGIVDGuy24';\n" +
                 "\n" +
-                "        var map = L.mapquest.map('map', {\n" +
+                "        var map = L.mapquest.map('map', {" +
                 "          center: ["+lat+", "+lng+"],\n" +
-                "          layers: L.mapquest.tileLayer('map'),\n" +
+                "          layers: L.mapquest.tileLayer('"+mapType+"'),\n" +
                 "          zoom: "+zoom+"\n" +
                 "        });\n" +
                 "\n" +
