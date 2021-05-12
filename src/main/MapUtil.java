@@ -14,17 +14,17 @@ import java.net.URL;
 public class MapUtil {
     private static final String KEY = "8EJ8bp8k7ASlJ0KvS1eyOYEjkrSClB9t";
 
-    public static Image getStaticMap(String address) throws IOException {
-        HttpsURLConnection connection = HTTPSUtil.establishConnection(buildConnectionURL(address));
+    public static Image getStaticMap(double lat, double lon) throws IOException {
+        HttpsURLConnection connection = establishConnection(buildConnectionURL(lat, lon));
         BufferedImage image = ImageIO.read(connection.getInputStream());
         int status = connection.getResponseCode();
         System.out.println(status);
         return SwingFXUtils.toFXImage(image, null);
     }
 
-    private static URL buildConnectionURL(String address) {
+    private static URL buildConnectionURL(double lon, double lat) {
         try {
-            URL url =  new URL("https://www.mapquestapi.com/staticmap/v5/map?key=" + KEY + "&center=" + address + "&size=1200,800@2x");
+            URL url =  new URL("https://www.mapquestapi.com/staticmap/v5/map?key=" + KEY + "&center=" + lon +","+lat+ "&size=1200,800@2x");
             System.out.println(url.getHost());
             return url;
         } catch(MalformedURLException e) {
@@ -32,18 +32,18 @@ public class MapUtil {
             return null;
         }
     }
-    public static Image getStaticMap(String address, double zoom) throws IOException {
-        HttpsURLConnection connection = HTTPSUtil.establishConnection(buildConnectionURL(address, zoom));
+    public static Image getStaticMap(double lat, double lon, double zoom) throws IOException {
+        HttpsURLConnection connection = establishConnection(buildConnectionURL(lat, lon, zoom));
         BufferedImage image = ImageIO.read(connection.getInputStream());
         int status = connection.getResponseCode();
         System.out.println(status);
         return SwingFXUtils.toFXImage(image, null);
     }
 
-    private static URL buildConnectionURL(String address, double zoom) {
+    private static URL buildConnectionURL(double lon, double lat, double zoom) {
         try {
             int intZoom = (int)zoom;
-            URL url =  new URL("https://www.mapquestapi.com/staticmap/v5/map?key=" + KEY + "&center=" + address +"&zoom="+intZoom+ "&size=1200,800@2x");
+            URL url =  new URL("https://www.mapquestapi.com/staticmap/v5/map?key=" + KEY + "&center=" + lon +","+lat+"&zoom="+intZoom+ "&size=1200,800@2x");
             System.out.println(url.getHost());
             return url;
         } catch(MalformedURLException e) {
@@ -51,30 +51,11 @@ public class MapUtil {
             return null;
         }
     }
-    public static String getMapHtml(double lat, double lng,int zoom,String mapType){
-        return "<html>\n" +
-                "  <head>\n" +
-                "    <script src=\"https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js\"></script>\n" +
-                "    <link type=\"text/css\" rel=\"stylesheet\" href=\"https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css\"/>\n" +
-                "\n" +
-                "    <script type=\"text/javascript\">\n" +
-                "      window.onload = function() {\n" +
-                "        L.mapquest.key = 'lYrP4vF3Uk5zgTiGGuEzQGwGIVDGuy24';\n" +
-                "\n" +
-                "        var map = L.mapquest.map('map', {" +
-                "          center: ["+lat+", "+lng+"],\n" +
-                "          layers: L.mapquest.tileLayer('"+mapType+"'),\n" +
-                "          zoom: "+zoom+"\n" +
-                "        });\n" +
-                "\n" +
-                "        map.addControl(L.mapquest.control());\n" +
-                "      }\n" +
-                "    </script>\n" +
-                "  </head>\n" +
-                "\n" +
-                "  <body style=\"border: 0; margin: 0;\">\n" +
-                "    <div id=\"map\" style=\"width: 100%; height: 530px;\"></div>\n" +
-                "  </body>\n" +
-                "</html>";
+
+    private static HttpsURLConnection establishConnection(URL url) throws IOException {
+        HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        return connection;
     }
+
 }

@@ -2,6 +2,7 @@ package main;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.print.PrinterJob;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
@@ -40,6 +41,15 @@ public class MapController implements Initializable {
 
         } catch(Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void print() {
+        PrinterJob job = PrinterJob.createPrinterJob();
+        if(job.showPrintDialog(null)) {
+            webMap.getEngine().print(job);
+            job.endJob();
         }
     }
 }
